@@ -1,8 +1,8 @@
 # send-file
 A Javascript module that simplifies sending files over HTTP ports.
 
-## Example:
-Server
+## Usage:
+Create a server...
 ```js
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -23,7 +23,7 @@ var server = app.listen(port, () => {
   console.log(`Test app listening on port ${port}!`);
 });
 ```
-Client
+...then send a file!
 ```js
 const sendFile = require('send-file');
 const port = 4536;
