@@ -26,6 +26,7 @@ var server = app.listen(port, () => {
 Client
 ```js
 const sendFile = require('send-file');
+const port = 4536;
 
 //==== Send File ====
 sendFile(`http://localhost:${port}`, path.resolve(__dirname, 'test.file'), (err, result, reply)=>{
