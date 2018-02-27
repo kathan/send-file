@@ -1,5 +1,4 @@
 var FormData = require('form-data'),
-    http = require('http'),
     fs = require('fs'),
     sendFile = function(url, file, data, callback){
       if(typeof data === 'function'){
@@ -13,7 +12,6 @@ var FormData = require('form-data'),
           form.append(i, data[i]);
         }
         form.append('file', fs.createReadStream(file));
-        //form.getHeaders({'Content-Type', ''});
         form.submit(url, function(err, reply) {
           if(err){return callback(err, false, reply);}
           if(reply.statusCode === 200){
