@@ -12,27 +12,33 @@ const sendFile = function(url, files, data, callback){
   }
   if(Array.isArray(files)){
     for(var i in files){
-      if(fs.existsSync(files[i])){
-        //console.log(`Appending files[i]`);
-        form.append('file'+i, fs.createReadStream(files[i]));
-      }else{
+      if(!fs.existsSync(files[i])){
         return callback(`${files[i]} does not exist.`, false);
       }
+      form.append('file'+i, fs.createReadStream(files[i]));
     }
   }else{
-    if(fs.existsSync(files)){
-      form.append('file', fs.createReadStream(files));
-    }else{
+    if(!fs.existsSync(files)){
       return callback(`${files} does not exist.`, false);
     }
+    form.append('file', fs.createReadStream(files));
   }
-  form.submit(url, function(err, reply) {
-    if(err){return callback(err, false, reply);}
-    if(reply.statusCode === 200){
-      return callback(null, true, reply);
-    }
-    //reply.end(); // for node-0.10.x 
-    return callback(null, false, reply);
+  
+  //form.on('response');
+  
+  process.nextTick(()=>{
+    form.submit(url, (err, reply) => {
+      console.log('sendFile.response');
+      if(err){return callback(err, false, reply);}
+    
+      if(reply.statusCode === 200){
+        return callback(null, true, reply);
+      }
+      if(reply.end){
+        reply.end();
+      }
+      return callback(null, false, reply);
+    });
   });
 };
     
