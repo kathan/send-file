@@ -1,6 +1,6 @@
 {
   "name": "@kathan/send-file",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A Javascript module that simplifies sending files over HTTP ports.",
   "license": "MIT",
   "homepage": "https://github.com/kathan/send-file/",
